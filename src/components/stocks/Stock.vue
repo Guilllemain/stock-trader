@@ -4,14 +4,14 @@
 			<div class="card-header bg-success text-white">{{ stock.name }} <small>(price : {{stock.price}})</small></div>
 			<div class="card-body">
 				<div class="d-flex justify-content-between">
-					<div class="col-xs-3">
-						
-					<input class="form-control"
-						   placeholder="Quantity"
-						   type="number"
-						   v-model.number="quantity">
+					<div class="col-md-6">
+						<input class="form-control"
+							   placeholder="Quantity"
+							   type="number"
+							   v-model.number="quantity"
+							   :class="{ danger: insufficientFunds }">
 					</div>
-					<button class="btn btn-success" @click="buyStock" :disabled="quantity <= 0 || !Number.isInteger(quantity)">Buy</button>
+					<button class="btn btn-success" @click="buyStock" :disabled="insufficientFunds || quantity <= 0 || !Number.isInteger(quantity)">{{ insufficientFunds ? 'Insufficient Funds' : 'Buy' }}</button>
 				</div>
 			</div>
 		</div>
@@ -31,6 +31,11 @@ export default {
 			quantity: 0
 		}
 	},
+	computed: {
+		insufficientFunds() {
+			return this.quantity * this.stock.price > this.$store.getters.funds;
+		}
+	},
 	methods: {
 		buyStock() {
 			const order = {
@@ -39,6 +44,7 @@ export default {
 				quantity: this.quantity
 			}
 			console.log(order);
+			this.$store.dispatch('buyStock', order);
 			this.quantity = 0;
 		}
 	}
@@ -46,6 +52,8 @@ export default {
 }
 </script>
 
-<style scoped>
-
+<style>
+	.danger {
+		border: 1px solid red;
+	}
 </style>

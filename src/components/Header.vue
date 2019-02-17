@@ -11,15 +11,16 @@
         	<li class="nav-item">
         		<a href="" class="nav-link">End day</a>
         	</li>
-        	<li class="nav-item dropdown">
-    	        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-    	          Save & Load
-    	        </a>
-    	        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-    	        	<a class="dropdown-item" href="#">Save data</a>
-    	        	<a class="dropdown-item" href="#">Load data</a>
-    	    	</div>
-    	    </li>
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  Save & Load
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <a class="dropdown-item" href="#">Save data</a>
+                    <a class="dropdown-item" href="#">Load data</a>
+                </div>
+            </li>
+            <strong class="navbar-text ml-2">Funds: {{ $store.getters.funds | currency }}</strong>
         </ul>
       </div>
     </nav>
