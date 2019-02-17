@@ -8,7 +8,10 @@
 <script>
   import HeaderComponent from './components/Header'
   export default {
-    components: {HeaderComponent}
+    components: {HeaderComponent},
+    created() {
+      this.$store.dispatch('initStocks');
+    }
   }
 </script>
 

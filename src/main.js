@@ -3,7 +3,7 @@ import App from './App.vue'
 import VueRouter from 'vue-router'
 import { routes } from './routes'
 import Vuex from 'vuex'
-import store from './store'
+import store from './store/store'
 
 Vue.use(VueRouter)
 
