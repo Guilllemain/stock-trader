@@ -11,13 +11,13 @@
         	<li class="nav-item">
         		<a href="#" class="nav-link" @click.prevent="endDay">End day</a>
         	</li>
-            <li class="nav-item dropdown" @click.prevent="dropdown = !dropdown">
+            <li class="nav-item dropdown" @mouseover="dropdown = true" @mouseout="dropdown = false">
                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                   Save & Load
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown" :class="{ show: dropdown }">
-                    <a class="dropdown-item" href="#">Save data</a>
-                    <a class="dropdown-item" href="#">Load data</a>
+                    <a class="dropdown-item" href="#" @click.prevent="saveData">Save data</a>
+                    <a class="dropdown-item" href="#" @click.prevent="loadData">Load data</a>
                 </div>
             </li>
             <strong class="navbar-text ml-2">Funds: {{ $store.getters.funds | currency }}</strong>
@@ -36,11 +36,23 @@
             }
         },
         methods: {
-            ...mapActions([
-                'randomizeStocks'
-            ]),
+            ...mapActions({
+                randomizeStocks: 'randomizeStocks',
+                fetchData: 'loadData'
+            }),
             endDay() {
                 this.randomizeStocks();
+            },
+            saveData() {
+                const data = {
+                    funds: this.$store.getters.funds,
+                    stockPortfolio: this.$store.getters.stockPortfolio,
+                    stocks: this.$store.getters.stocks
+                };
+                this.$http.put('data.json', data); // use PUT instead of POST to have for the same data to be erased everytime you save data
+            },
+            loadData() {
+                this.fetchData();
             }
         } 
     }
