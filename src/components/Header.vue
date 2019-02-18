@@ -9,13 +9,13 @@
         </ul>
         <ul class="navbar-nav ml-auto">
         	<li class="nav-item">
-        		<a href="" class="nav-link">End day</a>
+        		<a href="#" class="nav-link" @click.prevent="endDay">End day</a>
         	</li>
-            <li class="nav-item dropdown">
+            <li class="nav-item dropdown" @click.prevent="dropdown = !dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                   Save & Load
                 </a>
-                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown" :class="{ show: dropdown }">
                     <a class="dropdown-item" href="#">Save data</a>
                     <a class="dropdown-item" href="#">Load data</a>
                 </div>
@@ -27,9 +27,23 @@
 </template>
 
 <script>
-export default {
-  
-}
+    import {mapActions} from 'vuex';
+
+    export default {
+        data() {
+            return {
+                dropdown: false
+            }
+        },
+        methods: {
+            ...mapActions([
+                'randomizeStocks'
+            ]),
+            endDay() {
+                this.randomizeStocks();
+            }
+        } 
+    }
 </script>
 
 <style scoped>
