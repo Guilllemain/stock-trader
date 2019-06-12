@@ -8,7 +8,7 @@
 	import StockComponent from './Stock'
 
 	export default {
-        components: {StockComponent},
+			components: {StockComponent},
 	    computed: {
     	  	stocks() {
     	  		return this.$store.getters.stockPortfolio;
@@ -18,5 +18,8 @@
 </script>
 
 <style scoped>
-
+div {
+	display: flex;
+	flex-wrap: wrap;
+}
 </style>
